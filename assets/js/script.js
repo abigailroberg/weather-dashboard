@@ -140,8 +140,6 @@ var displayCityDate = function(event) {
     displayCityEl.textContent = inputCity;
 
     getLatLong(inputCity);
-
-    
 }
 
 var getLatLong = function(city) {
