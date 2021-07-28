@@ -23,7 +23,7 @@
                     <h3 class="card-header font-weight-bold col-12 bg-white border-0">Search for a City:</h3>
                     <form id="city-input" class="card-body">
                         <input name="city" id="city" type="text" autofocus="true" class="form-input col-12" />
-                        <button type="submit" class="btn bg-primary text-white col-12">Search</button>
+                        <button type="submit" class="btn bg-primary text-white col-12" id="search" >Search</button>
                     </form>
                 </div>
                 <div id="saved-cities"></div>
@@ -31,7 +31,7 @@
         
             <div class="col-8">
                 <div class="border border-dark col-10">
-                    <h2 id="selected-city"><span id="date"></span></h2>
+                    <h2> <span id="selected-city"></span> (<span id="date"></span>)</h2>
                     <p>Temp: <span id="current-temp"></span>°F</p>
                     <p>Wind: <span id="current-wind"></span> MPH</p>
                     <p>Humidity: <span id="current-humid"></span>%</p>

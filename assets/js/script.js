@@ -1,3 +1,10 @@
+// time and place elements
+var dateEl = document.querySelector("#date");
+var displayCityEl = document.querySelector("#selected-city");
+//var cityEl = document.querySelector("#city");
+var cityInputEl = document.querySelector("#city");
+var searchBtnEl = document.querySelector("#search");
+
 // current weather elements
 var currentTempEl = document.querySelector("#current-temp");
 var currentWindEl = document.querySelector("#current-wind");
@@ -104,7 +111,6 @@ var getForecast = function(lat,long) {
 }
 
 var displayForecast = function() {
-    console.log(dailyForecast);
 
     temp1El.textContent = dailyForecast[0].temp;
     wind1El.textContent = dailyForecast[0].wind;
@@ -127,5 +133,30 @@ var displayForecast = function() {
     humid5El.textContent = dailyForecast[4].humid;
 }
 
-getForecast(30.26, -97.74);
-getWeather(30.26, -97.74);
+var displayCityDate = function(event) {
+    event.preventDefault();
+
+    var inputCity = cityInputEl.value.trim();
+    displayCityEl.textContent = inputCity;
+
+    getLatLong(inputCity);
+
+    
+}
+
+var getLatLong = function(city) {
+    var apiCall = "http://api.openweathermap.org/geo/1.0/direct?q=" + city +"&limit=1&appid=e76cfd847a87e984b00da68d202f4233";
+
+    fetch(apiCall).then(function(response) {
+        response.json().then(function(data) {
+            var lat = data[0].lat;
+            var long = data[0].lon;
+
+            getForecast(lat, long);
+            getWeather(lat, long);
+        })
+    })
+}
+
+// event listener for search
+searchBtnEl.addEventListener("click", displayCityDate);
