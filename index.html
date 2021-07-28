@@ -9,26 +9,25 @@
     <title>Weather Dashboard</title>
 </head>
 <body>
-    <header>
+    <header class="bg-primary text-white text-center">
         <h1>Weather Dashboard</h1>
     </header>
 
     <div class="row">
 
         <div class="col-4">
-            <div class="card">
-                <h3 class="card-header text-uppercase">Search for a City:</h3>
+            <div class="card border-0">
+                <h3 class="card-header font-weight-bold col-12 bg-white border-0">Search for a City:</h3>
                 <form id="city-input" class="card-body">
-                    <label class="form-label" for="city">City</label>
-                    <input name="city" id="city" type="text" autofocus="true" class="form-input" />
-                    <button type="submit" class="btn">Search</button>
+                    <input name="city" id="city" type="text" autofocus="true" class="form-input col-12" />
+                    <button type="submit" class="btn bg-primary text-white col-12">Search</button>
                 </form>
             </div>
             <div id="saved-cities"></div>
         </div>
     
         <div class="col-8">
-            <div>
+            <div class="border border-dark">
                 <h2 id="selected-city"><span id="date"></span></h2>
             </div>
             <div class="row">
@@ -37,8 +36,9 @@
 
             <div id="forecast-cards" class="row">
 
-                <div class="card col-2">
+                <div class="card col-2 text-white days">
                     <h4 class="card-header" id="date-1"></h4>
+                    <div id="icon-1"></div>
                     <p class="card-body">
                         Temp:<span id="temp-1"></span><br>
                         Wind:<span id="wind-1"></span><br>
@@ -46,8 +46,9 @@
                     </p>
                 </div>
 
-                <div class="card col-2">
+                <div class="card col-2 text-white days">
                     <h4 class="card-header" id="date-2"></h4>
+                    <div id="icon-2"></div>
                     <p class="card-body">
                         Temp:<span id="temp-2"></span><br>
                         Wind:<span id="wind-2"></span><br>
@@ -55,8 +56,9 @@
                     </p>
                 </div>
 
-                <div class="card col-2">
+                <div class="card col-2 text-white days">
                     <h4 class="card-header" id="date-3"></h4>
+                    <div id="icon-3"></div>
                     <p class="card-body">
                         Temp:<span id="temp-3"></span><br>
                         Wind:<span id="wind-3"></span><br>
@@ -64,8 +66,9 @@
                     </p>
                 </div>
 
-                <div class="card col-2">
+                <div class="card col-2 text-white days">
                     <h4 class="card-header" id="date-4"></h4>
+                    <div id="icon-4"></div>
                     <p class="card-body">
                         Temp:<span id="temp-4"></span><br>
                         Wind:<span id="wind-4"></span><br>
@@ -73,8 +76,9 @@
                     </p>
                 </div>
 
-                <div class="card col-2">
+                <div class="card col-2 text-white days">
                     <h4 class="card-header" id="date-5"></h4>
+                    <div id="icon-5"></div>
                     <p class="card-body">
                         Temp:<span id="temp-5"></span><br>
                         Wind:<span id="wind-5"></span><br>
