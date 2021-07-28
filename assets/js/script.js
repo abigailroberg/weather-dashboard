@@ -1,5 +1,7 @@
 var currentTempEl = document.querySelector("#current-temp");
 var currentWindEl = document.querySelector("#current-wind");
+var currentHumidEl = document.querySelector("#current-humid");
+var currentUvEl = document.querySelector("#current-uv");
 
 var currentTemp = "";
 var currentWind = "";
@@ -29,7 +31,10 @@ getWeather(30.26, -97.74);
 // function to display current day weather
 
 var displayCurrentWeather = function() {
-    console.log(currentTemp);
+    currentTempEl.textContent = currentTemp;
+    currentWindEl.textContent = currentWind;
+    currentHumidEl.textContent = currentHumid;
+    currentUvEl.textContent = currentUV;
 }
 
 // function to display 5-day forecast
