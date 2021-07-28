@@ -8,88 +8,97 @@
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Weather Dashboard</title>
 </head>
+
+
 <body>
     <header class="bg-primary text-white text-center">
         <h1>Weather Dashboard</h1>
     </header>
 
-    <div class="row">
+    <main>
+        <div class="row">
 
-        <div class="col-4">
-            <div class="card border-0">
-                <h3 class="card-header font-weight-bold col-12 bg-white border-0">Search for a City:</h3>
-                <form id="city-input" class="card-body">
-                    <input name="city" id="city" type="text" autofocus="true" class="form-input col-12" />
-                    <button type="submit" class="btn bg-primary text-white col-12">Search</button>
-                </form>
+            <div class="col-4">
+                <div class="card border-0">
+                    <h3 class="card-header font-weight-bold col-12 bg-white border-0">Search for a City:</h3>
+                    <form id="city-input" class="card-body">
+                        <input name="city" id="city" type="text" autofocus="true" class="form-input col-12" />
+                        <button type="submit" class="btn bg-primary text-white col-12">Search</button>
+                    </form>
+                </div>
+                <div id="saved-cities"></div>
             </div>
-            <div id="saved-cities"></div>
+        
+            <div class="col-8">
+                <div class="border border-dark">
+                    <h2 id="selected-city"><span id="date"></span></h2>
+                    <p>Temp: <span id="current-temp"></span></p>
+                    <p>Wind: <span id="current-wind"></span></p>
+                    <p>Humidity: <span id="current-humid"></span></p>
+                    <p>UV Index: <span id="current-uv"></span></p>
+                </div>
+                <div class="row">
+                    <h3>5 Day Forecast</h3>
+                </div>
+    
+                <div id="forecast-cards" class="row">
+    
+                    <div class="card col-2 text-white days">
+                        <h4 class="card-header" id="date-1"></h4>
+                        <div id="icon-1"></div>
+                        <p class="card-body">
+                            Temp:<span id="temp-1"></span><br>
+                            Wind:<span id="wind-1"></span><br>
+                            Humidity:<span id=humid-1></span>
+                        </p>
+                    </div>
+    
+                    <div class="card col-2 text-white days">
+                        <h4 class="card-header" id="date-2"></h4>
+                        <div id="icon-2"></div>
+                        <p class="card-body">
+                            Temp:<span id="temp-2"></span><br>
+                            Wind:<span id="wind-2"></span><br>
+                            Humidity:<span id=humid-2></span>
+                        </p>
+                    </div>
+    
+                    <div class="card col-2 text-white days">
+                        <h4 class="card-header" id="date-3"></h4>
+                        <div id="icon-3"></div>
+                        <p class="card-body">
+                            Temp:<span id="temp-3"></span><br>
+                            Wind:<span id="wind-3"></span><br>
+                            Humidity:<span id=humid-3></span>
+                        </p>
+                    </div>
+    
+                    <div class="card col-2 text-white days">
+                        <h4 class="card-header" id="date-4"></h4>
+                        <div id="icon-4"></div>
+                        <p class="card-body">
+                            Temp:<span id="temp-4"></span><br>
+                            Wind:<span id="wind-4"></span><br>
+                            Humidity:<span id=humid-4></span>
+                        </p>
+                    </div>
+    
+                    <div class="card col-2 text-white days">
+                        <h4 class="card-header" id="date-5"></h4>
+                        <div id="icon-5"></div>
+                        <p class="card-body">
+                            Temp:<span id="temp-5"></span><br>
+                            Wind:<span id="wind-5"></span><br>
+                            Humidity:<span id=humid-5></span>
+                        </p>
+                    </div>
+    
+                </div>  
+            </div>
         </div>
     
-        <div class="col-8">
-            <div class="border border-dark">
-                <h2 id="selected-city"><span id="date"></span></h2>
-            </div>
-            <div class="row">
-                <h3>5 Day Forecast</h3>
-            </div>
+    </main>
 
-            <div id="forecast-cards" class="row">
-
-                <div class="card col-2 text-white days">
-                    <h4 class="card-header" id="date-1"></h4>
-                    <div id="icon-1"></div>
-                    <p class="card-body">
-                        Temp:<span id="temp-1"></span><br>
-                        Wind:<span id="wind-1"></span><br>
-                        Humidity:<span id=humid-1></span>
-                    </p>
-                </div>
-
-                <div class="card col-2 text-white days">
-                    <h4 class="card-header" id="date-2"></h4>
-                    <div id="icon-2"></div>
-                    <p class="card-body">
-                        Temp:<span id="temp-2"></span><br>
-                        Wind:<span id="wind-2"></span><br>
-                        Humidity:<span id=humid-2></span>
-                    </p>
-                </div>
-
-                <div class="card col-2 text-white days">
-                    <h4 class="card-header" id="date-3"></h4>
-                    <div id="icon-3"></div>
-                    <p class="card-body">
-                        Temp:<span id="temp-3"></span><br>
-                        Wind:<span id="wind-3"></span><br>
-                        Humidity:<span id=humid-3></span>
-                    </p>
-                </div>
-
-                <div class="card col-2 text-white days">
-                    <h4 class="card-header" id="date-4"></h4>
-                    <div id="icon-4"></div>
-                    <p class="card-body">
-                        Temp:<span id="temp-4"></span><br>
-                        Wind:<span id="wind-4"></span><br>
-                        Humidity:<span id=humid-4></span>
-                    </p>
-                </div>
-
-                <div class="card col-2 text-white days">
-                    <h4 class="card-header" id="date-5"></h4>
-                    <div id="icon-5"></div>
-                    <p class="card-body">
-                        Temp:<span id="temp-5"></span><br>
-                        Wind:<span id="wind-5"></span><br>
-                        Humidity:<span id=humid-5></span>
-                    </p>
-                </div>
-
-            </div>  
-        </div>
-    </div>
-    
-    
+    <script src="./assets/js/script.js"></script>
 </body>
 </html>
