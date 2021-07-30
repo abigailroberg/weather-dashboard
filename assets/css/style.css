@@ -17,3 +17,8 @@ header {
 .row {
     margin-top: 2%;
 }
+
+img {
+    width: 50%;
+    align-items: center;
+}

@@ -65,18 +65,27 @@ var getWeather = function(lat, long) {
             currentWind = data.current.wind_speed;
             currentHumid = data.current.humidity;
             currentUV = data.current.uvi;
-            displayCurrentWeather();
+            displayCurrentWeather(data.current.uvi);
         });
     })
 }
 
 // function to display current day weather
 
-var displayCurrentWeather = function() {
+var displayCurrentWeather = function(Uvi) {
     currentTempEl.textContent = currentTemp;
     currentWindEl.textContent = currentWind;
     currentHumidEl.textContent = currentHumid;
     currentUvEl.textContent = currentUV;
+    if (Uvi > 6) {
+        currentUvEl.classList = "bg-danger text-white";
+    }
+    else if (Uvi > 3) {
+        currentUvEl.className = "bg-warning";
+    }
+    else {
+        currentUvEl.classList = "bg-success text-white";
+    }
 }
 
 // function to get 5-day forecast
@@ -115,7 +124,7 @@ var displayForecast = function() {
         tempEl.textContent = "Temp: " + dailyForecast[i].temp + "°F";
         tempEl.className = "card-body";
         var windEl = document.createElement("p");
-        windEl.textContent = "Wind: " + dailyForecast[i].wind + "MPH";
+        windEl.textContent = "Wind: " + dailyForecast[i].wind + " MPH";
         windEl.className = "card-body";
         var humidEl = document.createElement("p");
         humidEl.textContent = "Humidity: " + dailyForecast[i].humid + "%";
