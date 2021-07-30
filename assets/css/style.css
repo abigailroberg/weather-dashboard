@@ -13,3 +13,7 @@ header {
 .days {
     background-color: navy;
 }
+
+.row {
+    margin-top: 2%;
+}

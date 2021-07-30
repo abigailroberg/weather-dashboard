@@ -12,25 +12,7 @@ var currentHumidEl = document.querySelector("#current-humid");
 var currentUvEl = document.querySelector("#current-uv");
 
 // forecast elements
-var temp1El = document.querySelector("#temp-1");
-var wind1El = document.querySelector("#wind-1");
-var humid1El = document.querySelector("#humid-1");
-
-var temp2El = document.querySelector("#temp-2");
-var wind2El = document.querySelector("#wind-2");
-var humid2El = document.querySelector("#humid-2");
-
-var temp3El = document.querySelector("#temp-3");
-var wind3El = document.querySelector("#wind-3");
-var humid3El = document.querySelector("#humid-3");
-
-var temp4El = document.querySelector("#temp-4");
-var wind4El = document.querySelector("#wind-4");
-var humid4El = document.querySelector("#humid-4");
-
-var temp5El = document.querySelector("#temp-5");
-var wind5El = document.querySelector("#wind-5");
-var humid5El = document.querySelector("#humid-5");
+var forecastEl = document.querySelector("#forecast-cards");
 
 // current weather variables
 var currentTemp = "";
@@ -38,36 +20,39 @@ var currentWind = "";
 var currentHumid = "";
 var currentUV = "";
 
-// daily forecast object array
+// daily forecast object array for 5 days
 var dailyForecast = [
     {
         "temp": "",
         "wind": "",
         "humid": "",
+        "icon": "",
     },
     {
         "temp": "",
         "wind": "",
         "humid": "",
+        "icon": "",
     },
     {
         "temp": "",
         "wind": "",
         "humid": "",
+        "icon": "",
     },
     {
         "temp": "",
         "wind": "",
         "humid": "",
+        "icon": "",
     },
     {
         "temp": "",
         "wind": "",
         "humid": "",
+        "icon": "",
     }
 ]
-
-// function to get lat/long of given city
 
 // function to get current weather from Open Weather Api for a given lat/long
 
@@ -96,65 +81,92 @@ var displayCurrentWeather = function() {
 
 // function to get 5-day forecast
 var getForecast = function(lat,long) {
+    //set url to fetch
     var apiCall = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + long + "&units=imperial&exclude=minutely&appid=e76cfd847a87e984b00da68d202f4233";
     
+    // call open weather api for forecast data
     fetch(apiCall).then(function(response) {
         response.json().then(function(data){
+            // set forecast variables to correct api data
             for(var i = 1; i < dailyForecast.length + 1; i++) {
                 dailyForecast[i-1].temp = data.daily[i].temp.day;
                 dailyForecast[i-1].wind = data.daily[i].wind_speed;
                 dailyForecast[i-1].humid = data.daily[i].humidity;
+                dailyForecast[i-1].icon = "http://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + "@2x.png";
             }
+            // call function to display the forecast
             displayForecast();
         });
     })
 }
 
 var displayForecast = function() {
+    // loop through dailyForecast array 
+    for(var i=0; i<dailyForecast.length; i++) {
+        // create card for each day of the forecast
+        var cardEl = document.createElement("div");
+        cardEl.classList = "card col-2 text-white days";
+        //TO DO: add header to card
+        
+        // set content elements of card
+        var iconEl = document.createElement("img");
+        iconEl.src = dailyForecast[i].icon;
+        var tempEl = document.createElement("p");
+        tempEl.textContent = "Temp: " + dailyForecast[i].temp + "°F";
+        tempEl.className = "card-body";
+        var windEl = document.createElement("p");
+        windEl.textContent = "Wind: " + dailyForecast[i].wind + "MPH";
+        windEl.className = "card-body";
+        var humidEl = document.createElement("p");
+        humidEl.textContent = "Humidity: " + dailyForecast[i].humid + "%";
+        windEl.className = "card-body";
 
-    temp1El.textContent = dailyForecast[0].temp;
-    wind1El.textContent = dailyForecast[0].wind;
-    humid1El.textContent = dailyForecast[0].humid;
+        // append elements to card
+        cardEl.appendChild(iconEl);
+        cardEl.appendChild(tempEl);
+        cardEl.appendChild(windEl);
+        cardEl.appendChild(humidEl);
 
-    temp2El.textContent = dailyForecast[1].temp;
-    wind2El.textContent = dailyForecast[1].wind;
-    humid2El.textContent = dailyForecast[1].humid;
-
-    temp3El.textContent = dailyForecast[2].temp;
-    wind3El.textContent = dailyForecast[2].wind;
-    humid3El.textContent = dailyForecast[2].humid;
-
-    temp4El.textContent = dailyForecast[3].temp;
-    wind4El.textContent = dailyForecast[3].wind;
-    humid4El.textContent = dailyForecast[3].humid;
-
-    temp5El.textContent = dailyForecast[4].temp;
-    wind5El.textContent = dailyForecast[4].wind;
-    humid5El.textContent = dailyForecast[4].humid;
+        // append card to div
+        forecastEl.appendChild(cardEl);
+    }
 }
 
-var displayCityDate = function(event) {
+var displayCity = function(event) {
     event.preventDefault();
 
-    var inputCity = cityInputEl.value.trim();
-    displayCityEl.textContent = inputCity;
+    // clear previous forecast
+    forecastEl.innerHTML = "";
 
+    // display & search for city 
+    var inputCity = cityInputEl.value.trim();
+    displayCityEl.textContent = inputCity.charAt(0).toUpperCase() + inputCity.slice(1);
     getLatLong(inputCity);
 }
 
 var getLatLong = function(city) {
+
+    // set url to fetch
     var apiCall = "http://api.openweathermap.org/geo/1.0/direct?q=" + city +"&limit=1&appid=e76cfd847a87e984b00da68d202f4233";
 
+    // call OpenWeather API to get latitude & longitude of desired city
     fetch(apiCall).then(function(response) {
         response.json().then(function(data) {
             var lat = data[0].lat;
             var long = data[0].lon;
 
+            // get the current weather and forecast for the latitude and longitude given
             getForecast(lat, long);
             getWeather(lat, long);
         })
     })
 }
 
+var displayDates = function() {
+    console.log("clicked");
+
+    
+}
+
 // event listener for search
-searchBtnEl.addEventListener("click", displayCityDate);
+searchBtnEl.addEventListener("click", displayCity);
