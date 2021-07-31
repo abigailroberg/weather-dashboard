@@ -3,8 +3,6 @@ var displayCityEl = document.querySelector("#selected-city");
 var cityInputEl = document.querySelector("#city");
 var searchBtnEl = document.querySelector("#search");
 
-var currentCity = "";
-
 // current weather div
 var currentWeatherEl = document.querySelector("#current-weather")
 
@@ -12,7 +10,9 @@ var currentWeatherEl = document.querySelector("#current-weather")
 var forecastEl = document.querySelector("#forecast-cards");
 
 // current weather variables
+var currentCity = "";
 var currentDate = "";
+var currentIcon = "";
 var currentTemp = "";
 var currentWind = "";
 var currentHumid = "";
@@ -69,6 +69,8 @@ var getWeather = function(lat, long) {
             currentHumid = data.current.humidity;
             currentUV = data.current.uvi;
             currentDate = data.current.dt;
+            currentIcon = "http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png";
+            console.log(currentIcon);
             displayCurrentWeather(data.current.uvi);
         });
     })
@@ -79,10 +81,19 @@ var getWeather = function(lat, long) {
 var displayCurrentWeather = function(Uvi) {
     // format the date
     formatDate();
-    // add the heading
+    // set the heading
     var currentHeadingEl = document.createElement("h3");
     currentHeadingEl.textContent = currentCity + " " + currentDate;
     displayCityEl.textContent = displayCityEl.textContent + " " + currentDate;
+    // set the icon
+    var currentIconEl = document.createElement("img");
+    currentIconEl.classList = "currentIcon";
+    currentIconEl.src = currentIcon;
+    // create row for header and icon
+    var headerEl = document.createElement("div");
+    headerEl.classList = "row weather-heading";
+    headerEl.appendChild(currentHeadingEl);
+    headerEl.appendChild(currentIconEl);
     // set content elements
     var currentTempEl = document.createElement("p");
     currentTempEl.textContent = "Temp: " + currentTemp + "°F";
@@ -103,8 +114,11 @@ var displayCurrentWeather = function(Uvi) {
         currentUvEl.classList = "bg-success text-white";
     }
 
-    // append paragraphs to div
-    currentWeatherEl.appendChild(currentHeadingEl);
+    // format div
+    currentWeatherEl.classList = "border border-dark col-10"
+
+    // append content to div
+    currentWeatherEl.appendChild(headerEl);
     currentWeatherEl.appendChild(currentTempEl);
     currentWeatherEl.appendChild(currentWindEl);
     currentWeatherEl.appendChild(currentHumidEl);
@@ -148,6 +162,7 @@ var displayForecast = function() {
         dateEl.classList ="fcstDate";
         // set content elements of card
         var iconEl = document.createElement("img");
+        iconEl.classList = "fcstIcon";
         iconEl.src = dailyForecast[i].icon;
         var tempEl = document.createElement("p");
         tempEl.textContent = "Temp: " + dailyForecast[i].temp + "°F";

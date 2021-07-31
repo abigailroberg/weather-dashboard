@@ -19,7 +19,20 @@ header {
     margin-top: 2%;
 }
 
-img {
+#current-weather {
+    padding-left: 1%;
+}
+
+.weather-heading {
+    padding-left: 2%;
+}
+
+.currentIcon {
+    width: 7%;
+    vertical-align: middle;
+}
+
+.fcstIcon {
     width: 50%;
     align-items: center;
 }
