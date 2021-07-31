@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Weather Dashboard</title>
 </head>
@@ -23,32 +25,24 @@
                     <h3 class="card-header font-weight-bold col-12 bg-white border-0">Search for a City:</h3>
                     <form id="city-input" class="card-body">
                         <input name="city" id="city" type="text" autofocus="true" class="form-input col-12" />
-                        <button type="submit" class="btn bg-primary text-white col-12" id="search" >Search</button>
+                        <button type="submit" class="btn bg-primary text-white col-12" id="search">Search</button>
                     </form>
                 </div>
                 <div id="saved-cities"></div>
             </div>
-        
+
             <div class="col-8">
-                <div class="border border-dark col-10">
+                <div class="border border-dark col-10" id="current-weather">
                     <h2> <span id="selected-city"></span><span id="date"></span></h2>
-                    <p>Temp: <span id="current-temp"></span>°F</p>
-                    <p>Wind: <span id="current-wind"></span> MPH</p>
-                    <p>Humidity: <span id="current-humid"></span>%</p>
-                    <p>UV Index: <span id="current-uv"></span></p>
                 </div>
-                <div class="row">
+
+                <div class="row" id="forecast-cards">
                     <h3>5 Day Forecast</h3>
                 </div>
-    
-                <div id="forecast-cards" class="row">
-    
-                </div>  
             </div>
-        </div>
-    
     </main>
 
     <script src="./assets/js/script.js"></script>
 </body>
+
 </html>

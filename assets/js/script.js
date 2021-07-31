@@ -1,20 +1,18 @@
-// time and place elements
 var dateEl = document.querySelector("#date");
 var displayCityEl = document.querySelector("#selected-city");
-//var cityEl = document.querySelector("#city");
 var cityInputEl = document.querySelector("#city");
 var searchBtnEl = document.querySelector("#search");
 
-// current weather elements
-var currentTempEl = document.querySelector("#current-temp");
-var currentWindEl = document.querySelector("#current-wind");
-var currentHumidEl = document.querySelector("#current-humid");
-var currentUvEl = document.querySelector("#current-uv");
+var currentCity = "";
 
-// forecast elements
+// current weather div
+var currentWeatherEl = document.querySelector("#current-weather")
+
+// forecast div
 var forecastEl = document.querySelector("#forecast-cards");
 
 // current weather variables
+var currentDate = "";
 var currentTemp = "";
 var currentWind = "";
 var currentHumid = "";
@@ -23,30 +21,35 @@ var currentUV = "";
 // daily forecast object array for 5 days
 var dailyForecast = [
     {
+        "date": "",
         "temp": "",
         "wind": "",
         "humid": "",
         "icon": "",
     },
     {
+        "date": "",
         "temp": "",
         "wind": "",
         "humid": "",
         "icon": "",
     },
     {
+        "date": "",
         "temp": "",
         "wind": "",
         "humid": "",
         "icon": "",
     },
     {
+        "date": "",
         "temp": "",
         "wind": "",
         "humid": "",
         "icon": "",
     },
     {
+        "date": "",
         "temp": "",
         "wind": "",
         "humid": "",
@@ -65,6 +68,7 @@ var getWeather = function(lat, long) {
             currentWind = data.current.wind_speed;
             currentHumid = data.current.humidity;
             currentUV = data.current.uvi;
+            currentDate = data.current.dt;
             displayCurrentWeather(data.current.uvi);
         });
     })
@@ -73,10 +77,22 @@ var getWeather = function(lat, long) {
 // function to display current day weather
 
 var displayCurrentWeather = function(Uvi) {
-    currentTempEl.textContent = currentTemp;
-    currentWindEl.textContent = currentWind;
-    currentHumidEl.textContent = currentHumid;
-    currentUvEl.textContent = currentUV;
+    // format the date
+    formatDate();
+    // add the heading
+    var currentHeadingEl = document.createElement("h3");
+    currentHeadingEl.textContent = currentCity + " " + currentDate;
+    displayCityEl.textContent = displayCityEl.textContent + " " + currentDate;
+    // set content elements
+    var currentTempEl = document.createElement("p");
+    currentTempEl.textContent = "Temp: " + currentTemp + "°F";
+    var currentWindEl = document.createElement("p");
+    currentWindEl.textContent = "Wind: " + currentWind + " MPH";
+    var currentHumidEl = document.createElement("p");
+    currentHumidEl.textContent = "Humidity: " + currentHumid + "%";
+    var currentUvEl = document.createElement("p");
+    currentUvEl.textContent = "UV Index: " + currentUV;
+    // set UVI background color 
     if (Uvi > 6) {
         currentUvEl.classList = "bg-danger text-white";
     }
@@ -86,6 +102,13 @@ var displayCurrentWeather = function(Uvi) {
     else {
         currentUvEl.classList = "bg-success text-white";
     }
+
+    // append paragraphs to div
+    currentWeatherEl.appendChild(currentHeadingEl);
+    currentWeatherEl.appendChild(currentTempEl);
+    currentWeatherEl.appendChild(currentWindEl);
+    currentWeatherEl.appendChild(currentHumidEl);
+    currentWeatherEl.appendChild(currentUvEl);
 }
 
 // function to get 5-day forecast
@@ -96,8 +119,10 @@ var getForecast = function(lat,long) {
     // call open weather api for forecast data
     fetch(apiCall).then(function(response) {
         response.json().then(function(data){
+            
             // set forecast variables to correct api data
             for(var i = 1; i < dailyForecast.length + 1; i++) {
+                dailyForecast[i-1].date = data.daily[i].dt;
                 dailyForecast[i-1].temp = data.daily[i].temp.day;
                 dailyForecast[i-1].wind = data.daily[i].wind_speed;
                 dailyForecast[i-1].humid = data.daily[i].humidity;
@@ -110,13 +135,17 @@ var getForecast = function(lat,long) {
 }
 
 var displayForecast = function() {
+    // call function to format dates
+    formatDates();
     // loop through dailyForecast array 
     for(var i=0; i<dailyForecast.length; i++) {
         // create card for each day of the forecast
         var cardEl = document.createElement("div");
         cardEl.classList = "card col-2 text-white days";
-        //TO DO: add header to card
-        
+        // set header for card
+        var dateEl = document.createElement("h3");
+        dateEl.textContent = dailyForecast[i].date;
+        dateEl.classList ="fcstDate";
         // set content elements of card
         var iconEl = document.createElement("img");
         iconEl.src = dailyForecast[i].icon;
@@ -131,6 +160,7 @@ var displayForecast = function() {
         windEl.className = "card-body";
 
         // append elements to card
+        cardEl.appendChild(dateEl);
         cardEl.appendChild(iconEl);
         cardEl.appendChild(tempEl);
         cardEl.appendChild(windEl);
@@ -144,12 +174,14 @@ var displayForecast = function() {
 var displayCity = function(event) {
     event.preventDefault();
 
+    // clear previous weather
+    currentWeatherEl.innerHTML = "";
     // clear previous forecast
     forecastEl.innerHTML = "";
 
     // display & search for city 
     var inputCity = cityInputEl.value.trim();
-    displayCityEl.textContent = inputCity.charAt(0).toUpperCase() + inputCity.slice(1);
+    currentCity = inputCity.charAt(0).toUpperCase() + inputCity.slice(1);
     getLatLong(inputCity);
 }
 
@@ -165,16 +197,25 @@ var getLatLong = function(city) {
             var long = data[0].lon;
 
             // get the current weather and forecast for the latitude and longitude given
-            getForecast(lat, long);
             getWeather(lat, long);
+            getForecast(lat, long);
         })
     })
 }
 
-var displayDates = function() {
-    console.log("clicked");
+var formatDate = function() {
+    let date = new Date(currentDate * 1000);
+    date = date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear();
+    let dateStg = "(" + date + ")"
+    currentDate = dateStg;
+}
 
-    
+var formatDates = function() {
+    for(var i=0; i<dailyForecast.length; i++) {
+        let date = new Date(dailyForecast[i].date * 1000);
+        date = date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear();
+        dailyForecast[i].date = date;
+    }
 }
 
 // event listener for search
