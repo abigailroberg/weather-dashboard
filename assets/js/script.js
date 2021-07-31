@@ -149,8 +149,20 @@ var getForecast = function(lat,long) {
 }
 
 var displayForecast = function() {
+    // create & add forecast heading
+    var fcstHeadingEl = document.createElement("div");
+    fcstHeadingEl.classList = "row"
+    var fcstH3El = document.createElement("h3");
+    fcstH3El.textContent = "5 Day Forecast:"
+    fcstHeadingEl.appendChild(fcstH3El);
+    forecastEl.appendChild(fcstHeadingEl);
     // call function to format dates
     formatDates();
+
+    // create row for cards 
+    var cardRowEl = document.createElement("div");
+    cardRowEl.className = "row";
+
     // loop through dailyForecast array 
     for(var i=0; i<dailyForecast.length; i++) {
         // create card for each day of the forecast
@@ -166,23 +178,48 @@ var displayForecast = function() {
         iconEl.src = dailyForecast[i].icon;
         var tempEl = document.createElement("p");
         tempEl.textContent = "Temp: " + dailyForecast[i].temp + "°F";
-        tempEl.className = "card-body";
         var windEl = document.createElement("p");
         windEl.textContent = "Wind: " + dailyForecast[i].wind + " MPH";
-        windEl.className = "card-body";
         var humidEl = document.createElement("p");
         humidEl.textContent = "Humidity: " + dailyForecast[i].humid + "%";
-        windEl.className = "card-body";
+
+        // build rows for card
+        var cardBodyEl = document.createElement("div");
+        cardBodyEl.classList = "card-body";
+
+        var dateRowEl = document.createElement("div");
+        dateRowEl.classList = "row";
+        dateRowEl.appendChild(dateEl);
+
+        var iconRowEl = document.createElement("div");
+        iconRowEl.classList = "row";
+        iconRowEl.appendChild(iconEl);
+
+        var tempRowEl = document.createElement("div");
+        tempRowEl.classList = "row";
+        tempRowEl.appendChild(tempEl);
+
+        var windRowEl = document.createElement("div");
+        windRowEl.classList = "row";
+        windRowEl.appendChild(windEl);
+
+        var humidRowEl = document.createElement("div");
+        humidRowEl.classList = "row";
+        humidRowEl.appendChild(humidEl);
 
         // append elements to card
-        cardEl.appendChild(dateEl);
-        cardEl.appendChild(iconEl);
-        cardEl.appendChild(tempEl);
-        cardEl.appendChild(windEl);
-        cardEl.appendChild(humidEl);
+        cardBodyEl.appendChild(dateRowEl);
+        cardBodyEl.appendChild(iconRowEl);
+        cardBodyEl.appendChild(tempRowEl);
+        cardBodyEl.appendChild(windRowEl);
+        cardBodyEl.appendChild(humidRowEl);
+
+        cardEl.appendChild(cardBodyEl);
+
+        cardRowEl.appendChild(cardEl);
 
         // append card to div
-        forecastEl.appendChild(cardEl);
+        forecastEl.appendChild(cardRowEl);
     }
 }
 
