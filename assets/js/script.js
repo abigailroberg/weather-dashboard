@@ -2,12 +2,15 @@ var dateEl = document.querySelector("#date");
 var displayCityEl = document.querySelector("#selected-city");
 var cityInputEl = document.querySelector("#city");
 var searchBtnEl = document.querySelector("#search");
-
-// current weather div
+var savedCitiesEl = document.querySelector("#saved-cities");
 var currentWeatherEl = document.querySelector("#current-weather")
-
-// forecast div
 var forecastEl = document.querySelector("#forecast-cards");
+
+// array for cities in local storage
+var savedCities = [];
+
+// searched or clicked city
+var searchedCity = "";
 
 // current weather variables
 var currentCity = "";
@@ -70,7 +73,6 @@ var getWeather = function(lat, long) {
             currentUV = data.current.uvi;
             currentDate = data.current.dt;
             currentIcon = "http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png";
-            console.log(currentIcon);
             displayCurrentWeather(data.current.uvi);
         });
     })
@@ -233,9 +235,17 @@ var displayCity = function(event) {
     forecastEl.innerHTML = "";
 
     // display & search for city 
-    var inputCity = cityInputEl.value.trim();
-    currentCity = inputCity.charAt(0).toUpperCase() + inputCity.slice(1);
-    getLatLong(inputCity);
+    if(searchedCity === "") {
+        searchedCity = cityInputEl.value.trim();
+    }
+        
+    currentCity = searchedCity.charAt(0).toUpperCase() + searchedCity.slice(1);
+    getLatLong(searchedCity);
+    if(!savedCities.includes(currentCity)) {
+        saveCity(currentCity);
+    }
+    savedCitiesEl.innerHTML = "";
+    showCities();
 }
 
 var getLatLong = function(city) {
@@ -269,6 +279,37 @@ var formatDates = function() {
         date = date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear();
         dailyForecast[i].date = date;
     }
+}
+
+// function to save new search to local storage
+var saveCity = function(city) {
+    if(!savedCities.includes(city)) {
+        savedCities.push(city);
+        localStorage.setItem("savedCities", JSON.stringify(savedCities));
+    }
+}
+
+// function to display saved cities as buttons
+var showCities = function() {
+    savedCities = JSON.parse(localStorage.getItem("savedCities"));
+    for (var i=0; i<savedCities.length; i++) {
+        var cityEl = document.createElement("button");
+        cityEl.textContent = savedCities[i];
+        cityEl.classList = "cityBtn col-11 border-0 rounded";
+        cityEl.addEventListener("click", searchCity);
+        savedCitiesEl.appendChild(cityEl);
+    }
+    
+}
+
+var searchCity = function() {
+    searchedCity = event.target;
+    displayCity();
+}
+
+savedCities = JSON.parse(localStorage.getItem("savedCities"));
+if(savedCities.length > 0) {
+        showCities();
 }
 
 // event listener for search
