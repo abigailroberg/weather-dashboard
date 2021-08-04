@@ -162,6 +162,7 @@ var displayForecast = function() {
     // create row for cards 
     var cardRowEl = document.createElement("div");
     cardRowEl.className = "row";
+    cardRowEl.setAttribute("id", "fcst-row");
 
     // loop through dailyForecast array 
     for(var i=0; i<dailyForecast.length; i++) {

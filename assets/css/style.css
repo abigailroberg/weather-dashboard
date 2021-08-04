@@ -1,3 +1,7 @@
+.gradient {
+    background: linear-gradient(#4f46f2, #0a0391) ;
+}
+
 .card {
     margin-right: 2%;
 }
@@ -11,12 +15,16 @@ header {
 }
 
 .days {
-    background-color: navy;
+    background-color: #38374a;
 }
 
 #current-weather {
     padding-left: 1%;
     margin-left: 0;
+}
+
+#fcst-row {
+    padding-left: 3%;
 }
 
 .weather-heading {
