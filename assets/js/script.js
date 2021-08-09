@@ -227,7 +227,10 @@ var displayForecast = function() {
 }
 
 var displayCity = function(event) {
-    event.preventDefault();
+    if(searchedCity === "") {
+        event.preventDefault();
+        searchedCity = cityInputEl.value.trim();
+    }
 
     // clear previous weather
     currentWeatherEl.innerHTML = "";
@@ -235,9 +238,7 @@ var displayCity = function(event) {
     forecastEl.innerHTML = "";
 
     // display & search for city 
-    if(searchedCity === "") {
-        searchedCity = cityInputEl.value.trim();
-    }
+    
         
     currentCity = searchedCity.charAt(0).toUpperCase() + searchedCity.slice(1);
     getLatLong(searchedCity);
@@ -292,18 +293,19 @@ var saveCity = function(city) {
 // function to display saved cities as buttons
 var showCities = function() {
     savedCities = JSON.parse(localStorage.getItem("savedCities"));
-    for (var i=0; i<savedCities.length; i++) {
+    savedCities.forEach(element => {
         var cityEl = document.createElement("button");
-        cityEl.textContent = savedCities[i];
+        cityEl.textContent = element;
         cityEl.classList = "cityBtn col-11 border-0 rounded";
         cityEl.addEventListener("click", searchCity);
         savedCitiesEl.appendChild(cityEl);
-    }
+    })
     
 }
 
-var searchCity = function() {
-    searchedCity = event.target;
+var searchCity = function(event) {
+    console.log(event.target.textContent);
+    searchedCity = event.target.textContent;
     displayCity();
 }
 
