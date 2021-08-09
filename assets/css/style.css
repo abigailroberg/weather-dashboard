@@ -47,3 +47,7 @@ header {
     padding-top: 2%;
     padding-bottom: 2%;
 }
+
+#forecast-cards {
+    margin-left: 2%;
+}

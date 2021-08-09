@@ -103,8 +103,12 @@ var displayCurrentWeather = function(Uvi) {
     currentWindEl.textContent = "Wind: " + currentWind + " MPH";
     var currentHumidEl = document.createElement("p");
     currentHumidEl.textContent = "Humidity: " + currentHumid + "%";
-    var currentUvEl = document.createElement("p");
-    currentUvEl.textContent = "UV Index: " + currentUV;
+    var currentUvNameEl = document.createElement("p");
+    currentUvNameEl.textContent = "UV Index: "
+    var currentUvEl = document.createElement("span");
+    currentUvEl.textContent = currentUV;
+    currentUvEl.setAttribute("padding", "10px");
+    currentUvNameEl.appendChild(currentUvEl);
     // set UVI background color 
     if (Uvi > 6) {
         currentUvEl.classList = "bg-danger text-white";
@@ -124,7 +128,7 @@ var displayCurrentWeather = function(Uvi) {
     currentWeatherEl.appendChild(currentTempEl);
     currentWeatherEl.appendChild(currentWindEl);
     currentWeatherEl.appendChild(currentHumidEl);
-    currentWeatherEl.appendChild(currentUvEl);
+    currentWeatherEl.appendChild(currentUvNameEl);
 }
 
 // function to get 5-day forecast
@@ -304,7 +308,6 @@ var showCities = function() {
 }
 
 var searchCity = function(event) {
-    console.log(event.target.textContent);
     searchedCity = event.target.textContent;
     displayCity();
 }
