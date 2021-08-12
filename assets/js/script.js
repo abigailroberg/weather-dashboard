@@ -262,6 +262,9 @@ var displayCity = function(event) {
     // display & search for city 
     currentCity = searchedCity.charAt(0).toUpperCase() + searchedCity.slice(1);
     getLatLong(currentCity);
+
+    // clear searchedCity text to setup next search
+    searchedCity = "";
 }
 
 var getLatLong = function(city) {
