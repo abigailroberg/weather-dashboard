@@ -73,7 +73,7 @@ var getWeather = function(lat, long) {
             currentHumid = data.current.humidity;
             currentUV = data.current.uvi;
             currentDate = data.current.dt;
-            currentIcon = "http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png";
+            currentIcon = "https://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png";
             displayCurrentWeather(data.current.uvi);
             });
         }
@@ -152,7 +152,7 @@ var getForecast = function(lat,long) {
                 dailyForecast[i-1].temp = data.daily[i].temp.day;
                 dailyForecast[i-1].wind = data.daily[i].wind_speed;
                 dailyForecast[i-1].humid = data.daily[i].humidity;
-                dailyForecast[i-1].icon = "http://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + "@2x.png";
+                dailyForecast[i-1].icon = "https://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + "@2x.png";
             }
             // call function to display the forecast
             displayForecast();
@@ -270,7 +270,7 @@ var displayCity = function(event) {
 var getLatLong = function(city) {
 
     // set url to fetch
-    var apiCall = "http://api.openweathermap.org/geo/1.0/direct?q=" + city +"&limit=1&appid=e76cfd847a87e984b00da68d202f4233";
+    var apiCall = "https://api.openweathermap.org/geo/1.0/direct?q=" + city +"&limit=1&appid=e76cfd847a87e984b00da68d202f4233";
 
     // call OpenWeather API to get latitude & longitude of desired city
     fetch(apiCall).then(function(response) {
