@@ -12,7 +12,7 @@ Get the current weather and 5 day forecast for a city. Previously searched for c
 https://abigailroberg.github.io/weather-dashboard/
 
 ## Screenshot
-
+![image](https://user-images.githubusercontent.com/84743748/129231109-f774e1a1-7e4e-44cb-81e1-714c54733557.png)
 
 ## Author
 Made by Abigail Roberg
