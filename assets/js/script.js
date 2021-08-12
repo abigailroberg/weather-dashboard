@@ -305,6 +305,7 @@ var saveCity = function(city) {
 
 // function to display saved cities as buttons
 var showCities = function() {
+    savedCitiesEl.innerHTML = "";
     savedCities = JSON.parse(localStorage.getItem("savedCities"));
     if(savedCities) {
         savedCities.forEach(element => {
