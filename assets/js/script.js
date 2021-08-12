@@ -299,23 +299,22 @@ var formatDates = function() {
 
 // function to save new search to local storage
 var saveCity = function(city) {
-   if(!savedCities.includes(city)) {
         savedCities.push(city);
         localStorage.setItem("savedCities", JSON.stringify(savedCities));
-    }
 }
 
 // function to display saved cities as buttons
 var showCities = function() {
-    savedCitiesEl.innerHTML = "";
     savedCities = JSON.parse(localStorage.getItem("savedCities"));
-    savedCities.forEach(element => {
+    if(savedCities) {
+        savedCities.forEach(element => {
         var cityEl = document.createElement("button");
         cityEl.textContent = element;
         cityEl.classList = "cityBtn col-11 border-0 rounded";
         cityEl.addEventListener("click", searchCity);
         savedCitiesEl.appendChild(cityEl);
     })
+    }
 }
 
 var searchCity = function(event) {
@@ -326,8 +325,11 @@ var searchCity = function(event) {
 }
 
 // show saved cities on start up if any are there
-savedCities = JSON.parse(localStorage.getItem("savedCities"));
-if(savedCities.length != 0) {
+if(JSON.parse(localStorage.getItem("savedCities"))) {
+    savedCities = JSON.parse(localStorage.getItem("savedCities"));
+}
+
+if(savedCities && savedCities.length != 0) {
     showCities();
 }
 
